@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#6B0F0F">
+  <title>文言文学习 · 考试必背</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700&family=Noto+Sans+SC:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red: #9B1B1B;
+      --dark-red: #6B0F0F;
+      --gold: #C9A227;
+      --cream: #F8F1E3;
+      --paper: #F3EBD8;
+      --ink: #2C1A0E;
+      --light-ink: #5C4033;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      background: linear-gradient(135deg, #3a1c0f 0%, #1a0a05 100%);
+      min-height: 100vh;
+      min-height: 100dvh;
+      color: var(--ink);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 12px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 480px;
+      background: var(--cream);
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5),
+                  inset 0 0 0 6px var(--gold),
+                  inset 0 0 0 10px var(--dark-red);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 电脑端稍微宽一点，更舒适 */
+    @media (min-width: 768px) {
+      .app {
+        max-width: 520px;
+      }
+      body {
+        padding: 24px;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .app {
+        max-width: 560px;
+      }
+    }
+
+    .header {
+      background: linear-gradient(to right, var(--dark-red), var(--red), var(--dark-red));
+      color: var(--gold);
+      text-align: center;
+      padding: 18px 16px 14px;
+      flex-shrink: 0;
+    }
+
+    .header h1 {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 3px;
+    }
+
+    .header .subtitle {
+      font-size: 12px;
+      opacity: 0.85;
+      margin-top: 4px;
+      letter-spacing: 1px;
+    }
+
+    .nav {
+      display: flex;
+      background: var(--paper);
+      border-bottom: 2px solid #e0d4b8;
+      flex-shrink: 0;
+    }
+
+    .nav button {
+      flex: 1;
+      padding: 12px 0;
+      border: none;
+      background: transparent;
+      font-family: 'Noto Serif SC', serif;
+      font-size: 14px;
+      color: var(--light-ink);
+      cursor: pointer;
+      position: relative;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .nav button.active {
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    .nav button.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 18%;
+      width: 64%;
+      height: 3px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    .content {
+      padding: 20px 16px 24px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    /* 闪卡 */
+    .card-container {
+      perspective: 1200px;
+      height: 260px;
+      margin-bottom: 16px;
+    }
+
+    @media (min-width: 400px) {
+      .card-container {
+        height: 280px;
+      }
+    }
+
+    .flashcard {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .flashcard.flipped { transform: rotateY(180deg); }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    .card-front {
+      background: linear-gradient(145deg, #fffaf0, #f5e9d3);
+      border: 2px solid var(--gold);
+    }
+
+    .card-back {
+      background: linear-gradient(145deg, #f8f0e0, #efe2c8);
+      border: 2px solid var(--red);
+      transform: rotateY(180deg);
+    }
+
+    .char {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 56px;
+      font-weight: 700;
+      color: var(--dark-red);
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    @media (min-width: 400px) {
+      .char { font-size: 64px; }
+    }
+
+    .back-pinyin {
+      font-size: 18px;
+      color: var(--light-ink);
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+
+    .meaning {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    @media (min-width: 400px) {
+      .meaning { font-size: 18px; }
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 30px;
+      font-family: 'Noto Sans SC', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 500;
+      -webkit-tap-highlight-color: transparent;
+      min-height: 42px;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(155, 27, 27, 0.3);
+    }
+
+    .btn-primary:hover { background: var(--dark-red); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--red);
+      border: 2px solid var(--red);
+    }
+
+    .btn-secondary:hover { background: rgba(155, 27, 27, 0.08); }
+
+    .btn-danger {
+      background: #c62828;
+      color: #fff;
+    }
+
+    .btn-danger:hover { background: #a12121; }
+
+    .btn-danger:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    .progress-text {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--light-ink);
+    }
+
+    .tip-text {
+      text-align: center;
+      font-size: 12px;
+      color: #a08b6a;
+      margin-top: 6px;
+    }
+
+    /* 测验 */
+    .quiz-question {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 18px;
+      text-align: center;
+      margin-bottom: 18px;
+      color: var(--dark-red);
+      line-height: 1.4;
+    }
+
+    .options { display: flex; flex-direction: column; gap: 10px; }
+
+    .option {
+      padding: 12px 14px;
+      background: #fff;
+      border: 2px solid #e5d9b8;
+      border-radius: 10px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.2s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .option:hover { border-color: var(--gold); background: #fffaf0; }
+    .option.correct { background: #e8f5e9; border-color: #4caf50; color: #2e7d32; }
+    .option.wrong { background: #ffebee; border-color: #ef5350; color: #c62828; }
+
+    .quiz-result {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    /* 词库 & 自定义 */
+    .section-title {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 16px;
+      color: var(--dark-red);
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .word-list {
+      max-height: 55vh;
+      overflow-y: auto;
+      margin-bottom: 12px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .word-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 4px;
+      border-bottom: 1px solid #e8dcc0;
+      gap: 8px;
+    }
+
+    .word-left { flex: 1; min-width: 0; }
+    .word-char { font-family: 'Noto Serif SC', serif; font-size: 16px; color: var(--dark-red); }
+    .word-pinyin { font-size: 12px; color: var(--light-ink); }
+    .word-meaning { font-size: 13px; color: var(--ink); margin-top: 2px; }
+
+    .word-actions button {
+      padding: 6px 10px;
+      font-size: 12px;
+      border-radius: 6px;
+    }
+
+    .form-group { margin-bottom: 12px; }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      color: var(--light-ink);
+      margin-bottom: 4px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid #d4c4a0;
+      border-radius: 8px;
+      font-family: 'Noto Sans SC', sans-serif;
+      font-size: 15px;
+      background: #fff;
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .empty-tip {
+      text-align: center;
+      color: var(--light-ink);
+      font-size: 14px;
+      padding: 30px 0;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 10px;
+      font-size: 12px;
+      color: #a08b6a;
+      background: var(--paper);
+      border-top: 1px solid #e0d4b8;
+      flex-shrink: 0;
+    }
+
+    .hidden { display: none !important; }
+
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+      background: #f0e6d0;
+      color: var(--light-ink);
+    }
+
+    .tag.custom {
+      background: #fce4ec;
+      color: #c2185b;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="header">
+      <h1>文言文学习</h1>
+      <div class="subtitle">考试必背高频词 · 自定义卡牌</div>
+    </div>
+
+    <div class="nav">
+      <button class="active" onclick="switchTab('flashcard')">闪卡</button>
+      <button onclick="switchTab('quiz')">测验</button>
+      <button onclick="switchTab('list')">词库</button>
+      <button onclick="switchTab('custom')">添加</button>
+    </div>
+
+    <div class="content">
+      <!-- 闪卡 -->
+      <div id="flashcard-tab">
+        <div class="card-container">
+          <div class="flashcard" id="flashcard" onclick="flipCard()">
+            <div class="card-face card-front">
+              <div class="char" id="front-char">顾</div>
+            </div>
+            <div class="card-face card-back">
+              <div class="back-pinyin" id="back-pinyin">gù</div>
+              <div class="meaning" id="back-meaning">回头看；只是、但</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-secondary" onclick="prevCard()">上一个</button>
+          <button class="btn btn-primary" onclick="nextCard()">下一个</button>
+          <button class="btn btn-danger" id="delete-btn" onclick="deleteCurrentCard()">删除此卡</button>
+        </div>
+        <div class="progress-text" id="progress-text">第 1 / 38 个</div>
+        <div class="tip-text">点击卡片翻转查看意思 · 仅自定义卡可删除</div>
+      </div>
+
+      <!-- 测验 -->
+      <div id="quiz-tab" class="hidden">
+        <div class="quiz-question" id="quiz-question">「顾」的常见意思是？</div>
+        <div class="options" id="quiz-options"></div>
+        <div class="quiz-result" id="quiz-result"></div>
+        <div style="text-align:center; margin-top: 18px;">
+          <button class="btn btn-primary" onclick="nextQuiz()" id="next-quiz-btn" style="display:none;">下一题</button>
+        </div>
+      </div>
+
+      <!-- 词库 -->
+      <div id="list-tab" class="hidden">
+        <div class="section-title">
+          <span>全部卡牌</span>
+          <span style="font-size:13px; color:var(--light-ink);" id="total-count">共 0 个</span>
+        </div>
+        <div class="word-list" id="word-list"></div>
+      </div>
+
+      <!-- 自定义添加 -->
+      <div id="custom-tab" class="hidden">
+        <div class="section-title">添加自定义卡牌</div>
+        <div class="form-group">
+          <label>文言词（必填）</label>
+          <input type="text" id="input-char" placeholder="例如：顾">
+        </div>
+        <div class="form-group">
+          <label>拼音（可选）</label>
+          <input type="text" id="input-pinyin" placeholder="例如：gù">
+        </div>
+        <div class="form-group">
+          <label>必背意思（必填）</label>
+          <input type="text" id="input-meaning" placeholder="例如：回头看；只是、但">
+        </div>
+        <div class="form-group">
+          <label>例句 / 备注（可选）</label>
+          <textarea id="input-example" placeholder="可填写例句或出处"></textarea>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" onclick="addCustomCard()">保存卡牌</button>
+          <button class="btn btn-secondary" onclick="clearForm()">清空</button>
+        </div>
+        <div id="add-tip" style="margin-top:14px; font-size:13px; color:var(--light-ink); text-align:center;"></div>
+      </div>
+    </div>
+
+    <div class="footer">温故而知新 · 可以为师矣</div>
+  </div>
+
+  <script>
+    const defaultWords = [
+      { char: "顾", pinyin: "gù", meaning: "回头看；只是、但", example: "", isCustom: false },
+      { char: "走", pinyin: "zǒu", meaning: "跑", example: "", isCustom: false },
+      { char: "去", pinyin: "qù", meaning: "离开；距离", example: "", isCustom: false },
+      { char: "亡", pinyin: "wáng", meaning: "逃跑；死亡；失去", example: "", isCustom: false },
+      { char: "绝", pinyin: "jué", meaning: "断；停止；极、非常；与世隔绝", example: "", isCustom: false },
+      { char: "益", pinyin: "yì", meaning: "更加；好处；增加", example: "", isCustom: false },
+      { char: "尝", pinyin: "cháng", meaning: "曾经", example: "", isCustom: false },
+      { char: "方", pinyin: "fāng", meaning: "正在；才；方法", example: "", isCustom: false },
+      { char: "适", pinyin: "shì", meaning: "恰好；到……去", example: "", isCustom: false },
+      { char: "但", pinyin: "dàn", meaning: "只；仅仅", example: "", isCustom: false },
+      { char: "徒", pinyin: "tú", meaning: "只；仅仅；白白地", example: "", isCustom: false },
+      { char: "悉", pinyin: "xī", meaning: "全部；都", example: "", isCustom: false },
+      { char: "皆", pinyin: "jiē", meaning: "都；全都", example: "", isCustom: false },
+      { char: "具", pinyin: "jù", meaning: "具备；准备；详加", example: "", isCustom: false },
+      { char: "复", pinyin: "fù", meaning: "又；再；恢复", example: "", isCustom: false },
+      { char: "乃", pinyin: "nǎi", meaning: "于是；才；竟然", example: "", isCustom: false },
+      { char: "遂", pinyin: "suì", meaning: "于是；就", example: "", isCustom: false },
+      { char: "固", pinyin: "gù", meaning: "本来；当然；坚固", example: "", isCustom: false },
+      { char: "诚", pinyin: "chéng", meaning: "确实；的确；真诚", example: "", isCustom: false },
+      { char: "甚", pinyin: "shèn", meaning: "很；非常；超过", example: "", isCustom: false },
+      { char: "颇", pinyin: "pō", meaning: "很；稍微", example: "", isCustom: false },
+      { char: "怪", pinyin: "guài", meaning: "感到奇怪；以……为怪", example: "", isCustom: false },
+      { char: "易", pinyin: "yì", meaning: "容易；交换；改变", example: "", isCustom: false },
+      { char: "谢", pinyin: "xiè", meaning: "道歉；辞别；感谢", example: "", isCustom: false },
+      { char: "遗", pinyin: "yí", meaning: "遗留；送给；丢失", example: "", isCustom: false },
+      { char: "举", pinyin: "jǔ", meaning: "举起；提出；全、都", example: "", isCustom: false },
+      { char: "莫", pinyin: "mò", meaning: "没有谁；不要；不", example: "", isCustom: false },
+      { char: "未", pinyin: "wèi", meaning: "没有；不曾；尚未", example: "", isCustom: false },
+      { char: "焉", pinyin: "yān", meaning: "于是；在哪里；语气词", example: "", isCustom: false },
+      { char: "其", pinyin: "qí", meaning: "他的；它的；难道；大概", example: "", isCustom: false },
+      { char: "之", pinyin: "zhī", meaning: "的；他、它；去、往", example: "", isCustom: false },
+      { char: "而", pinyin: "ér", meaning: "并且；然后；却", example: "", isCustom: false },
+      { char: "以", pinyin: "yǐ", meaning: "用；因为；来、用来", example: "", isCustom: false },
+      { char: "于", pinyin: "yú", meaning: "在；向、对；比", example: "", isCustom: false },
+      { char: "为", pinyin: "wéi / wèi", meaning: "做、担任；是；被", example: "", isCustom: false },
+      { char: "者", pinyin: "zhě", meaning: "……的人；……的事物", example: "", isCustom: false },
+      { char: "也", pinyin: "yě", meaning: "表示判断、陈述或语气", example: "", isCustom: false },
+      { char: "乎", pinyin: "hū", meaning: "吗；呢；于", example: "", isCustom: false }
+    ];
+
+    let words = [];
+    let currentIndex = 0;
+    let isFlipped = false;
+    let quizIndex = 0;
+    let quizAnswered = false;
+
+    function loadWords() {
+      const saved = localStorage.getItem('wenyan_custom_cards');
+      const custom = saved ? JSON.parse(saved) : [];
+      words = [...defaultWords, ...custom];
+    }
+
+    function saveCustomCards() {
+      const customOnly = words.filter(w => w.isCustom);
+      localStorage.setItem('wenyan_custom_cards', JSON.stringify(customOnly));
+    }
+
+    function updateCard() {
+      if (words.length === 0) {
+        document.getElementById('front-char').textContent = '无';
+        document.getElementById('back-pinyin').textContent = '';
+        document.getElementById('back-meaning').textContent = '暂无卡牌';
+        document.getElementById('progress-text').textContent = '0 个';
+        document.getElementById('delete-btn').disabled = true;
+        return;
+      }
+
+      const word = words[currentIndex];
+      document.getElementById('front-char').textContent = word.char;
+      document.getElementById('back-pinyin').textContent = word.pinyin || '';
+      document.getElementById('back-meaning').textContent = word.meaning;
+      document.getElementById('progress-text').textContent = `第 ${currentIndex + 1} / ${words.length} 个`;
+
+      const deleteBtn = document.getElementById('delete-btn');
+      deleteBtn.disabled = !word.isCustom;
+      deleteBtn.textContent = word.isCustom ? '删除此卡' : '默认词不可删';
+
+      const card = document.getElementById('flashcard');
+      card.classList.remove('flipped');
+      isFlipped = false;
+    }
+
+    function flipCard() {
+      if (words.length === 0) return;
+      document.getElementById('flashcard').classList.toggle('flipped');
+      isFlipped = !isFlipped;
+    }
+
+    function nextCard() {
+      if (words.length === 0) return;
+      currentIndex = (currentIndex + 1) % words.length;
+      updateCard();
+    }
+
+    function prevCard() {
+      if (words.length === 0) return;
+      currentIndex = (currentIndex - 1 + words.length) % words.length;
+      updateCard();
+    }
+
+    function deleteCurrentCard() {
+      if (words.length === 0) return;
+      const word = words[currentIndex];
+
+      if (!word.isCustom) {
+        alert('默认必背词不能删除');
+        return;
+      }
+
+      if (!confirm(`确定删除「${word.char}」这张自定义卡牌吗？`)) return;
+
+      words.splice(currentIndex, 1);
+      saveCustomCards();
+
+      if (words.length === 0) {
+        currentIndex = 0;
+      } else if (currentIndex >= words.length) {
+        currentIndex = words.length - 1;
+      }
+
+      updateCard();
+    }
+
+    function loadQuiz() {
+      if (words.length < 2) {
+        document.getElementById('quiz-question').textContent = '卡牌数量不足，请先添加更多卡牌';
+        document.getElementById('quiz-options').innerHTML = '';
+        return;
+      }
+      quizAnswered = false;
+      document.getElementById('quiz-result').textContent = '';
+      document.getElementById('next-quiz-btn').style.display = 'none';
+
+      const word = words[quizIndex % words.length];
+      const useMeaning = Math.random() > 0.35;
+      let question, answer;
+
+      if (useMeaning) {
+        question = `「${word.char}」的常见意思是？`;
+        answer = word.meaning;
+      } else {
+        question = `「${word.char}」的拼音是？`;
+        answer = word.pinyin || '（无拼音）';
+      }
+
+      document.getElementById('quiz-question').textContent = question;
+
+      let options = [answer];
+      while (options.length < 4) {
+        const random = words[Math.floor(Math.random() * words.length)];
+        const candidate = useMeaning ? random.meaning : (random.pinyin || '（无拼音）');
+        if (!options.includes(candidate)) options.push(candidate);
+      }
+      options = options.sort(() => Math.random() - 0.5);
+
+      const optionsEl = document.getElementById('quiz-options');
+      optionsEl.innerHTML = '';
+      options.forEach(opt => {
+        const div = document.createElement('div');
+        div.className = 'option';
+        div.textContent = opt;
+        div.onclick = () => selectOption(div, opt, answer);
+        optionsEl.appendChild(div);
+      });
+    }
+
+    function selectOption(el, selected, correct) {
+      if (quizAnswered) return;
+      quizAnswered = true;
+      document.querySelectorAll('.option').forEach(o => {
+        o.style.pointerEvents = 'none';
+        if (o.textContent === correct) o.classList.add('correct');
+      });
+      if (selected === correct) {
+        el.classList.add('correct');
+        document.getElementById('quiz-result').textContent = '✓ 回答正确！';
+        document.getElementById('quiz-result').style.color = '#2e7d32';
+      } else {
+        el.classList.add('wrong');
+        document.getElementById('quiz-result').textContent = '✗ 再接再厉';
+        document.getElementById('quiz-result').style.color = '#c62828';
+      }
+      document.getElementById('next-quiz-btn').style.display = 'inline-block';
+    }
+
+    function nextQuiz() {
+      quizIndex = (quizIndex + 1) % words.length;
+      loadQuiz();
+    }
+
+    function renderWordList() {
+      const list = document.getElementById('word-list');
+      document.getElementById('total-count').textContent = `共 ${words.length} 个`;
+      list.innerHTML = '';
+
+      if (words.length === 0) {
+        list.innerHTML = '<div class="empty-tip">暂无卡牌</div>';
+        return;
+      }
+
+      words.forEach((w, index) => {
+        const item = document.createElement('div');
+        item.className = 'word-item';
+        item.innerHTML = `
+          <div class="word-left">
+            <div class="word-char">
+              ${w.char}
+              ${w.isCustom ? '<span class="tag custom">自定义</span>' : '<span class="tag">必背</span>'}
+            </div>
+            <div class="word-pinyin">${w.pinyin || ''}</div>
+            <div class="word-meaning">${w.meaning}</div>
+          </div>
+          ${w.isCustom ? `<div class="word-actions"><button class="btn btn-danger" onclick="deleteCard(${index})">删除</button></div>` : ''}
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function addCustomCard() {
+      const char = document.getElementById('input-char').value.trim();
+      const pinyin = document.getElementById('input-pinyin').value.trim();
+      const meaning = document.getElementById('input-meaning').value.trim();
+      const example = document.getElementById('input-example').value.trim();
+      const tip = document.getElementById('add-tip');
+
+      if (!char || !meaning) {
+        tip.textContent = '请填写「文言词」和「必背意思」';
+        tip.style.color = '#c62828';
+        return;
+      }
+
+      words.push({
+        char,
+        pinyin,
+        meaning,
+        example,
+        isCustom: true
+      });
+
+      saveCustomCards();
+      clearForm();
+      tip.textContent = '✓ 已添加成功！';
+      tip.style.color = '#2e7d32';
+
+      if (!document.getElementById('flashcard-tab').classList.contains('hidden')) {
+        updateCard();
+      }
+    }
+
+    function clearForm() {
+      document.getElementById('input-char').value = '';
+      document.getElementById('input-pinyin').value = '';
+      document.getElementById('input-meaning').value = '';
+      document.getElementById('input-example').value = '';
+      document.getElementById('add-tip').textContent = '';
+    }
+
+    function deleteCard(index) {
+      if (!words[index].isCustom) return;
+      if (!confirm(`确定删除「${words[index].char}」这张自定义卡牌吗？`)) return;
+      words.splice(index, 1);
+      saveCustomCards();
+      renderWordList();
+      if (currentIndex >= words.length) currentIndex = Math.max(0, words.length - 1);
+      updateCard();
+    }
+
+    function switchTab(tab) {
+      document.querySelectorAll('.nav button').forEach((btn, i) => {
+        const names = ['flashcard', 'quiz', 'list', 'custom'];
+        btn.classList.toggle('active', names[i] === tab);
+      });
+
+      document.getElementById('flashcard-tab').classList.toggle('hidden', tab !== 'flashcard');
+      document.getElementById('quiz-tab').classList.toggle('hidden', tab !== 'quiz');
+      document.getElementById('list-tab').classList.toggle('hidden', tab !== 'list');
+      document.getElementById('custom-tab').classList.toggle('hidden', tab !== 'custom');
+
+      if (tab === 'quiz') loadQuiz();
+      if (tab === 'list') renderWordList();
+      if (tab === 'flashcard') updateCard();
+    }
+
+    // 初始化
+    loadWords();
+    updateCard();
+  </script>
+</body>
+</html>
