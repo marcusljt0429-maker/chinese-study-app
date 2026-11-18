@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#6B0F0F">
   <title>文言文学习 · 考试必背</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;700&family=Noto+Sans+SC:wght@400;500&display=swap" rel="stylesheet">
@@ -90,7 +91,7 @@
       border: none;
       background: transparent;
       font-family: 'Noto Serif SC', serif;
-      font-size: 15px;
+      font-size: 14px;
       color: var(--light-ink);
       cursor: pointer;
       position: relative;
@@ -106,8 +107,8 @@
       content: '';
       position: absolute;
       bottom: 0;
-      left: 20%;
-      width: 60%;
+      left: 18%;
+      width: 64%;
       height: 3px;
       background: var(--gold);
       border-radius: 2px;
@@ -121,8 +122,12 @@
 
     .card-container {
       perspective: 1200px;
-      height: 300px;
+      height: 320px;
       margin-bottom: 16px;
+    }
+
+    @media (min-width: 400px) {
+      .card-container { height: 340px; }
     }
 
     .flashcard {
@@ -147,7 +152,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 16px;
+      padding: 16px 18px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.12);
     }
 
@@ -162,15 +167,27 @@
       transform: rotateY(180deg);
       justify-content: flex-start;
       padding-top: 20px;
+      overflow-y: auto;
     }
 
     .char {
       font-family: 'Noto Serif SC', serif;
-      font-size: 62px;
+      font-size: 56px;
       font-weight: 700;
       color: var(--dark-red);
       line-height: 1.1;
       text-align: center;
+    }
+
+    @media (min-width: 400px) {
+      .char { font-size: 64px; }
+    }
+
+    .back-pinyin {
+      font-size: 17px;
+      color: var(--light-ink);
+      margin-bottom: 6px;
+      letter-spacing: 2px;
     }
 
     .meaning {
@@ -178,7 +195,7 @@
       font-weight: 500;
       color: var(--ink);
       text-align: center;
-      line-height: 1.4;
+      line-height: 1.45;
       margin-bottom: 12px;
     }
 
@@ -186,23 +203,24 @@
       width: 100%;
       border-top: 1px dashed #c9b98a;
       padding-top: 10px;
-      text-align: center;
+      margin-top: 4px;
     }
 
-    .example-label {
+    .example-label, .note-label {
       font-size: 12px;
-      color: #a08b6a;
-      margin-bottom: 4px;
+      color: var(--red);
+      font-weight: 500;
+      margin-bottom: 3px;
     }
 
-    .example {
+    .example-text {
       font-size: 14px;
       color: var(--ink);
       line-height: 1.55;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
-    .translation {
+    .note-text {
       font-size: 13px;
       color: var(--light-ink);
       line-height: 1.5;
@@ -211,8 +229,8 @@
     .highlight {
       color: var(--red);
       font-weight: 700;
-      background: rgba(155, 27, 27, 0.08);
-      padding: 0 2px;
+      background: rgba(155, 27, 27, 0.12);
+      padding: 0 3px;
       border-radius: 3px;
     }
 
@@ -310,40 +328,31 @@
     }
 
     .word-list {
-      max-height: 58vh;
+      max-height: 55vh;
       overflow-y: auto;
+      margin-bottom: 12px;
       -webkit-overflow-scrolling: touch;
     }
 
     .word-item {
-      padding: 12px 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 4px;
       border-bottom: 1px solid #e8dcc0;
+      gap: 8px;
     }
 
-    .word-char {
-      font-family: 'Noto Serif SC', serif;
-      font-size: 18px;
-      color: var(--dark-red);
-      margin-bottom: 4px;
-    }
+    .word-left { flex: 1; min-width: 0; }
+    .word-char { font-family: 'Noto Serif SC', serif; font-size: 16px; color: var(--dark-red); }
+    .word-pinyin { font-size: 12px; color: var(--light-ink); }
+    .word-meaning { font-size: 13px; color: var(--ink); margin-top: 2px; }
 
-    .word-meaning {
-      font-size: 14px;
-      color: var(--ink);
-      margin-bottom: 4px;
-    }
-
-    .word-example {
-      font-size: 13px;
-      color: var(--ink);
-      line-height: 1.5;
-      margin-bottom: 2px;
-    }
-
-    .word-translation {
-      font-size: 12px;
+    .empty-tip {
+      text-align: center;
       color: var(--light-ink);
-      line-height: 1.4;
+      font-size: 14px;
+      padding: 30px 0;
     }
 
     .footer {
@@ -357,13 +366,23 @@
     }
 
     .hidden { display: none !important; }
+
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+      background: #f0e6d0;
+      color: var(--light-ink);
+    }
   </style>
 </head>
 <body>
   <div class="app">
     <div class="header">
       <h1>文言文学习</h1>
-      <div class="subtitle">考试必背高频词 · 例句 + 译文</div>
+      <div class="subtitle">考试必背高频词</div>
     </div>
 
     <div class="nav">
@@ -381,12 +400,13 @@
               <div class="char" id="front-char">顾</div>
             </div>
             <div class="card-face card-back">
+              <div class="back-pinyin" id="back-pinyin">gù</div>
               <div class="meaning" id="back-meaning">回头看；只是、但</div>
               <div class="example-box">
                 <div class="example-label">例句</div>
-                <div class="example" id="back-example"></div>
-                <div class="example-label">译文</div>
-                <div class="translation" id="back-translation"></div>
+                <div class="example-text" id="back-example"></div>
+                <div class="note-label">注释</div>
+                <div class="note-text" id="back-note"></div>
               </div>
             </div>
           </div>
@@ -396,7 +416,7 @@
           <button class="btn btn-primary" onclick="nextCard()">下一个</button>
         </div>
         <div class="progress-text" id="progress-text">第 1 / 38 个</div>
-        <div class="tip-text">点击卡片翻转查看意思、例句和译文</div>
+        <div class="tip-text">点击卡片翻转查看意思、例句和注释</div>
       </div>
 
       <!-- 测验 -->
@@ -412,8 +432,8 @@
       <!-- 词库 -->
       <div id="list-tab" class="hidden">
         <div class="section-title">
-          <span>全部必背词</span>
-          <span style="font-size:13px; color:var(--light-ink);" id="total-count">共 38 个</span>
+          <span>全部卡牌</span>
+          <span style="font-size:13px; color:var(--light-ink);" id="total-count">共 0 个</span>
         </div>
         <div class="word-list" id="word-list"></div>
       </div>
@@ -423,63 +443,85 @@
   </div>
 
   <script>
-    const words = [
-      { char: "顾", meaning: "回头看；只是、但", example: "三顾臣于草庐之中。", translation: "三次到草庐中拜访我。" },
-      { char: "走", meaning: "跑", example: "弃甲曳兵而走。", translation: "丢掉铠甲拖着兵器逃跑。" },
-      { char: "去", meaning: "离开；距离", example: "大江东去，浪淘尽。", translation: "大江向东流去，波浪淘尽英雄。" },
-      { char: "亡", meaning: "逃跑；死亡；失去", example: "今亡亦死，举大计亦死。", translation: "现在逃跑也是死，发动大事也是死。" },
-      { char: "绝", meaning: "断；停止；极、非常；与世隔绝", example: "率妻子邑人来此绝境。", translation: "带领妻子儿女和乡亲来到这与世隔绝的地方。" },
-      { char: "益", meaning: "更加；好处；增加", example: "香远益清，亭亭净植。", translation: "香气远播更加清幽，笔直洁净地立在水中。" },
-      { char: "尝", meaning: "曾经", example: "仲永生五年，未尝识书具。", translation: "仲永长到五岁，还不曾见过书写工具。" },
-      { char: "方", meaning: "正在；才；方法", example: "方欲行，转视积薪后。", translation: "正要走的时候，转身看见柴堆后面。" },
-      { char: "适", meaning: "恰好；到……去", example: "适得君府书。", translation: "恰好收到您府上的来信。" },
-      { char: "但", meaning: "只；仅仅", example: "但闻黄河流水鸣溅溅。", translation: "只听见黄河流水溅溅作响。" },
-      { char: "徒", meaning: "只；仅仅；白白地", example: "少壮不努力，老大徒伤悲。", translation: "年轻时不努力，老了只能白白伤心。" },
-      { char: "悉", meaning: "全部；都", example: "悉使赢兵负草填之。", translation: "全部让瘦弱的士兵背草去填。" },
-      { char: "皆", meaning: "都；全都", example: "皆若空游无所依。", translation: "都好像在空中游动，没有什么依靠。" },
-      { char: "具", meaning: "具备；准备；详加", example: "故人具鸡黍，邀我至田家。", translation: "老朋友准备了鸡和黄米饭，邀请我到农家。" },
-      { char: "复", meaning: "又；再；恢复", example: "复前行，欲穷其林。", translation: "又向前走，想走到那片林子的尽头。" },
-      { char: "乃", meaning: "于是；才；竟然", example: "乃重修岳阳楼，增其旧制。", translation: "于是重新修建岳阳楼，扩大它原有的规模。" },
-      { char: "遂", meaning: "于是；就", example: "遂与外人间隔。", translation: "于是就和外面的人隔绝了。" },
-      { char: "固", meaning: "本来；当然；坚固", example: "汝心之固，固不可彻。", translation: "你思想顽固，本来就无法开导。" },
-      { char: "诚", meaning: "确实；的确；真诚", example: "此诚危急存亡之秋也。", translation: "这确实是危急存亡的关键时刻。" },
-      { char: "甚", meaning: "很；非常；超过", example: "所言甚是。", translation: "说的话很对。" },
-      { char: "颇", meaning: "很；稍微", example: "颇有名气。", translation: "很有名气。" },
-      { char: "怪", meaning: "感到奇怪；以……为怪", example: "怪之，不敢发。", translation: "感到奇怪，不敢发动。" },
-      { char: "易", meaning: "容易；交换；改变", example: "寒暑易节，始一反焉。", translation: "冬夏换季，才往返一次。" },
-      { char: "谢", meaning: "道歉；辞别；感谢", example: "使君谢罗敷。", translation: "太守向罗敷道歉（或问讯）。" },
-      { char: "遗", meaning: "遗留；送给；丢失", example: "小学而大遗，吾未见其明也。", translation: "小的方面学习，大的方面却遗漏，我看不出他的明智。" },
-      { char: "举", meaning: "举起；提出；全、都", example: "举头望明月，低头思故乡。", translation: "抬头看明月，低头思念故乡。" },
-      { char: "莫", meaning: "没有谁；不要；不", example: "莫愁前路无知己。", translation: "不要担心前面的路上没有知心朋友。" },
-      { char: "未", meaning: "没有；不曾；尚未", example: "肉食者鄙，未能远谋。", translation: "吃肉的人目光短浅，不能作长远打算。" },
-      { char: "焉", meaning: "于是；在哪里；语气词", example: "且焉置土石？", translation: "况且把土石放在哪里呢？" },
-      { char: "其", meaning: "他的；它的；难道；大概", example: "其如土石何？", translation: "又能把土石怎么样呢？" },
-      { char: "之", meaning: "的；他、它；去、往", example: "学而时习之，不亦说乎？", translation: "学习并且按时温习它，不也是很高兴的吗？" },
-      { char: "而", meaning: "并且；然后；却", example: "温故而知新，可以为师矣。", translation: "温习旧知识从而知道新知识，就可以做老师了。" },
-      { char: "以", meaning: "用；因为；来、用来", example: "不以物喜，不以己悲。", translation: "不因为外物好坏而高兴，不因为自己得失而悲伤。" },
-      { char: "于", meaning: "在；向、对；比", example: "苛政猛于虎也。", translation: "苛刻的政令比老虎还要凶猛。" },
-      { char: "为", meaning: "做、担任；是；被", example: "人为刀俎，我为鱼肉。", translation: "别人是刀和砧板，我是鱼肉。" },
-      { char: "者", meaning: "……的人；……的事物", example: "知之者不如好之者。", translation: "知道它的人不如喜爱它的人。" },
-      { char: "也", meaning: "表示判断、陈述或语气", example: "此则岳阳楼之大观也。", translation: "这就是岳阳楼的雄伟景象。" },
-      { char: "乎", meaning: "吗；呢；于", example: "不亦说乎？", translation: "不也是很高兴的吗？" }
+    const defaultWords = [
+      { char: "顾", pinyin: "gù", meaning: "回头看；只是、但", example: "三顾茅庐", note: "这里的「顾」是拜访、看望的意思。" },
+      { char: "走", pinyin: "zǒu", meaning: "跑", example: "弃甲曳兵而走", note: "「走」在文言文中多表示奔跑，与现代汉语不同。" },
+      { char: "去", pinyin: "qù", meaning: "离开；距离", example: "距圆明园十里，有村曰谢庄", note: "「去」常表示离开某地，或表示距离。" },
+      { char: "亡", pinyin: "wáng", meaning: "逃跑；死亡；失去", example: "今亡亦死，举大计亦死", note: "此处「亡」是逃亡、逃跑的意思。" },
+      { char: "绝", pinyin: "jué", meaning: "断；停止；极、非常；与世隔绝", example: "率妻子邑人来此绝境", note: "「绝境」指与世隔绝的地方。" },
+      { char: "益", pinyin: "yì", meaning: "更加；好处；增加", example: "香远益清", note: "「益」在这里是更加的意思。" },
+      { char: "尝", pinyin: "cháng", meaning: "曾经", example: "予尝求古仁人之心", note: "「尝」表示曾经，是时间副词。" },
+      { char: "方", pinyin: "fāng", meaning: "正在；才；方法", example: "方欲行", note: "「方」在这里表示正在、正要。" },
+      { char: "适", pinyin: "shì", meaning: "恰好；到……去", example: "适为虞人驱", note: "「适」可表示到……去，或恰好。" },
+      { char: "但", pinyin: "dàn", meaning: "只；仅仅", example: "但闻黄河流水鸣溅溅", note: "「但」在文言文中常表示只、仅仅。" },
+      { char: "徒", pinyin: "tú", meaning: "只；仅仅；白白地", example: "徒有虚名", note: "「徒」表示仅仅、空有。" },
+      { char: "悉", pinyin: "xī", meaning: "全部；都", example: "悉使赢兵负草填之", note: "「悉」表示全部、都。" },
+      { char: "皆", pinyin: "jiē", meaning: "都；全都", example: "皆若空游无所依", note: "「皆」是范围副词，表示都。" },
+      { char: "具", pinyin: "jù", meaning: "具备；准备；详加", example: "故人具鸡黍", note: "「具」在这里是准备、置办的意思。" },
+      { char: "复", pinyin: "fù", meaning: "又；再；恢复", example: "复前行，欲穷其林", note: "「复」表示又、再。" },
+      { char: "乃", pinyin: "nǎi", meaning: "于是；才；竟然", example: "见渔人，乃大惊", note: "「乃」常表示于是、就。" },
+      { char: "遂", pinyin: "suì", meaning: "于是；就", example: "遂至承天寺寻张怀民", note: "「遂」表示于是、就，表承接。" },
+      { char: "固", pinyin: "gù", meaning: "本来；当然；坚固", example: "汝心之固，固不可彻", note: "前一个「固」是顽固，后一个是本来。" },
+      { char: "诚", pinyin: "chéng", meaning: "确实；的确；真诚", example: "此诚危急存亡之秋也", note: "「诚」在这里是确实、实在的意思。" },
+      { char: "甚", pinyin: "shèn", meaning: "很；非常；超过", example: "言之无文，行而不远", note: "「甚」表示程度深，很、非常。" },
+      { char: "颇", pinyin: "pō", meaning: "很；稍微", example: "颇有野趣", note: "「颇」可表示很，也可表示稍微。" },
+      { char: "怪", pinyin: "guài", meaning: "感到奇怪；以……为怪", example: "怪之", note: "「怪」作动词时表示对……感到奇怪。" },
+      { char: "易", pinyin: "yì", meaning: "容易；交换；改变", example: "寒暑易节", note: "「易」在这里是交换、改变的意思。" },
+      { char: "谢", pinyin: "xiè", meaning: "道歉；辞别；感谢", example: "长跪而谢之", note: "「谢」在这里是道歉的意思。" },
+      { char: "遗", pinyin: "yí", meaning: "遗留；送给；丢失", example: "父母岁有裘葛之遗", note: "「遗」在这里是送给、赠送的意思。" },
+      { char: "举", pinyin: "jǔ", meaning: "举起；提出；全、都", example: "举头望明月", note: "「举」在这里是抬起、举起的意思。" },
+      { char: "莫", pinyin: "mò", meaning: "没有谁；不要；不", example: "莫等闲，白了少年头", note: "「莫」表示不要、不能。" },
+      { char: "未", pinyin: "wèi", meaning: "没有；不曾；尚未", example: "未若柳絮因风起", note: "「未」表示没有、不曾。" },
+      { char: "焉", pinyin: "yān", meaning: "于是；在哪里；语气词", example: "且焉置土石", note: "「焉」在这里是疑问代词，表示在哪里。" },
+      { char: "其", pinyin: "qí", meaning: "他的；它的；难道；大概", example: "其如土石何", note: "「其」在这里加强反问语气。" },
+      { char: "之", pinyin: "zhī", meaning: "的；他、它；去、往", example: "学而时习之", note: "「之」在这里是代词，指代学过的知识。" },
+      { char: "而", pinyin: "ér", meaning: "并且；然后；却", example: "温故而知新", note: "「而」在这里表示承接，然后。" },
+      { char: "以", pinyin: "yǐ", meaning: "用；因为；来、用来", example: "以中有足乐者", note: "「以」在这里表示因为。" },
+      { char: "于", pinyin: "yú", meaning: "在；向、对；比", example: "苛政猛于虎也", note: "「于」在这里表示比较，比……还。" },
+      { char: "为", pinyin: "wéi / wèi", meaning: "做、担任；是；被", example: "山峦为晴雪所洗", note: "「为……所」表示被动。" },
+      { char: "者", pinyin: "zhě", meaning: "……的人；……的事物", example: "知之者不如好之者", note: "「者」是代词，指……的人。" },
+      { char: "也", pinyin: "yě", meaning: "表示判断、陈述或语气", example: "此则岳阳楼之大观也", note: "「也」是语气助词，表示判断。" },
+      { char: "乎", pinyin: "hū", meaning: "吗；呢；于", example: "吾与点也", note: "「乎」常用于疑问或感叹语气。" }
     ];
 
+    let words = [];
     let currentIndex = 0;
     let isFlipped = false;
     let quizIndex = 0;
     let quizAnswered = false;
 
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
     function highlightWord(text, word) {
-      // 把重点词用红色高亮
+      if (!text) return '';
+      // 简单替换，把关键字高亮
       return text.replace(new RegExp(word, 'g'), `<span class="highlight">${word}</span>`);
     }
 
+    function loadWords() {
+      words = [...defaultWords];
+      shuffleArray(words);
+      currentIndex = 0;
+      quizIndex = 0;
+    }
+
     function updateCard() {
+      if (words.length === 0) return;
+
       const word = words[currentIndex];
       document.getElementById('front-char').textContent = word.char;
+      document.getElementById('back-pinyin').textContent = word.pinyin || '';
       document.getElementById('back-meaning').textContent = word.meaning;
+      
+      // 例句高亮关键字
       document.getElementById('back-example').innerHTML = highlightWord(word.example, word.char);
-      document.getElementById('back-translation').textContent = word.translation;
+      document.getElementById('back-note').textContent = word.note || '';
+
       document.getElementById('progress-text').textContent = `第 ${currentIndex + 1} / ${words.length} 个`;
 
       const card = document.getElementById('flashcard');
@@ -488,37 +530,48 @@
     }
 
     function flipCard() {
+      if (words.length === 0) return;
       document.getElementById('flashcard').classList.toggle('flipped');
       isFlipped = !isFlipped;
     }
 
     function nextCard() {
+      if (words.length === 0) return;
       currentIndex = (currentIndex + 1) % words.length;
       updateCard();
     }
 
     function prevCard() {
+      if (words.length === 0) return;
       currentIndex = (currentIndex - 1 + words.length) % words.length;
       updateCard();
     }
 
     function loadQuiz() {
+      if (words.length < 2) return;
       quizAnswered = false;
       document.getElementById('quiz-result').textContent = '';
       document.getElementById('next-quiz-btn').style.display = 'none';
 
       const word = words[quizIndex % words.length];
-      const question = `「${word.char}」的常见意思是？`;
-      const answer = word.meaning;
+      const useMeaning = Math.random() > 0.35;
+      let question, answer;
+
+      if (useMeaning) {
+        question = `「${word.char}」的常见意思是？`;
+        answer = word.meaning;
+      } else {
+        question = `「${word.char}」的拼音是？`;
+        answer = word.pinyin || '（无拼音）';
+      }
 
       document.getElementById('quiz-question').textContent = question;
 
       let options = [answer];
       while (options.length < 4) {
         const random = words[Math.floor(Math.random() * words.length)];
-        if (!options.includes(random.meaning)) {
-          options.push(random.meaning);
-        }
+        const candidate = useMeaning ? random.meaning : (random.pinyin || '（无拼音）');
+        if (!options.includes(candidate)) options.push(candidate);
       }
       options = options.sort(() => Math.random() - 0.5);
 
@@ -562,14 +615,15 @@
       document.getElementById('total-count').textContent = `共 ${words.length} 个`;
       list.innerHTML = '';
 
-      words.forEach(w => {
+      words.forEach((w) => {
         const item = document.createElement('div');
         item.className = 'word-item';
         item.innerHTML = `
-          <div class="word-char">${w.char}</div>
-          <div class="word-meaning">${w.meaning}</div>
-          <div class="word-example">例句：${highlightWord(w.example, w.char)}</div>
-          <div class="word-translation">译文：${w.translation}</div>
+          <div class="word-left">
+            <div class="word-char">${w.char}</div>
+            <div class="word-pinyin">${w.pinyin || ''}</div>
+            <div class="word-meaning">${w.meaning}</div>
+          </div>
         `;
         list.appendChild(item);
       });
@@ -591,6 +645,7 @@
     }
 
     // 初始化
+    loadWords();
     updateCard();
   </script>
 </body>
