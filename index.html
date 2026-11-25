@@ -348,13 +348,6 @@
     .word-pinyin { font-size: 12px; color: var(--light-ink); }
     .word-meaning { font-size: 13px; color: var(--ink); margin-top: 2px; }
 
-    .empty-tip {
-      text-align: center;
-      color: var(--light-ink);
-      font-size: 14px;
-      padding: 30px 0;
-    }
-
     .footer {
       text-align: center;
       padding: 10px;
@@ -434,44 +427,44 @@
 
   <script>
     const defaultWords = [
-      { char: "顾", pinyin: "gù", meaning: "回头看；只是、但", example: "三顾茅庐", note: "三次拜访茅庐。" },
-      { char: "走", pinyin: "zǒu", meaning: "跑", example: "弃甲曳兵而走", note: "丢掉盔甲拖着兵器逃跑。" },
-      { char: "去", pinyin: "qù", meaning: "离开；距离", example: "一狼去，一狼仍从", note: "一只狼离开了，另一只狼仍然跟着。" },
-      { char: "亡", pinyin: "wáng", meaning: "逃跑；死亡；失去", example: "今亡亦死，举大计亦死", note: "现在逃跑也是死，发动大事也是死。" },
-      { char: "绝", pinyin: "jué", meaning: "断；停止；极、非常；与世隔绝", example: "率妻子邑人来此绝境", note: "带领妻子儿女和同乡人来到这个与世隔绝的地方。" },
-      { char: "益", pinyin: "yì", meaning: "更加；好处；增加", example: "香远益清", note: "香气传播得越远就越清幽。" },
-      { char: "尝", pinyin: "cháng", meaning: "曾经", example: "予尝求古仁人之心", note: "我曾经探求过古代品德高尚的人的思想感情。" },
-      { char: "方", pinyin: "fāng", meaning: "正在；才；方法", example: "方欲行", note: "正想要走。" },
-      { char: "适", pinyin: "shì", meaning: "恰好；到……去", example: "适为虞人驱", note: "恰好被管理山泽的人驱赶。" },
-      { char: "但", pinyin: "dàn", meaning: "只；仅仅", example: "但闻黄河流水鸣溅溅", note: "只听见黄河流水发出溅溅的声响。" },
-      { char: "徒", pinyin: "tú", meaning: "只；仅仅；白白地", example: "徒有虚名", note: "空有虚名。" },
-      { char: "悉", pinyin: "xī", meaning: "全部；都", example: "悉使赢兵负草填之", note: "全部让瘦弱的士兵背着草去填。" },
-      { char: "皆", pinyin: "jiē", meaning: "都；全都", example: "皆若空游无所依", note: "都好像在空中游动，没有什么依靠。" },
-      { char: "具", pinyin: "jù", meaning: "具备；准备；详加", example: "故人具鸡黍", note: "老朋友准备了鸡和黄米饭。" },
-      { char: "复", pinyin: "fù", meaning: "又；再；恢复", example: "复前行，欲穷其林", note: "又向前走，想要走到那片树林的尽头。" },
-      { char: "乃", pinyin: "nǎi", meaning: "于是；才；竟然", example: "见渔人，乃大惊", note: "看见渔人，于是大吃一惊。" },
-      { char: "遂", pinyin: "suì", meaning: "于是；就", example: "遂至承天寺寻张怀民", note: "于是到承天寺去找张怀民。" },
-      { char: "固", pinyin: "gù", meaning: "本来；当然；坚固", example: "汝心之固，固不可彻", note: "你思想的顽固，本来就不能开通。" },
-      { char: "诚", pinyin: "chéng", meaning: "确实；的确；真诚", example: "此诚危急存亡之秋也", note: "这确实是形势危急、决定存亡的时刻啊。" },
-      { char: "甚", pinyin: "shèn", meaning: "很；非常；超过", example: "言之无文，行而不远", note: "说话没有文采，传播就不会很远。" },
-      { char: "颇", pinyin: "pō", meaning: "很；稍微", example: "颇有野趣", note: "很有田野的情趣。" },
-      { char: "怪", pinyin: "guài", meaning: "感到奇怪；以……为怪", example: "怪之", note: "对此感到奇怪。" },
-      { char: "易", pinyin: "yì", meaning: "容易；交换；改变", example: "寒暑易节", note: "冬夏换季。" },
-      { char: "谢", pinyin: "xiè", meaning: "道歉；辞别；感谢", example: "长跪而谢之", note: "直身而跪向他道歉。" },
-      { char: "遗", pinyin: "yí", meaning: "遗留；送给；丢失", example: "父母岁有裘葛之遗", note: "父母每年都有皮衣和夏布衣服送来。" },
-      { char: "举", pinyin: "jǔ", meaning: "举起；提出；全、都", example: "举头望明月", note: "抬起头仰望天上的明月。" },
-      { char: "莫", pinyin: "mò", meaning: "没有谁；不要；不", example: "莫等闲，白了少年头", note: "不要轻易虚度光阴，让少年的头发白白地变老。" },
-      { char: "未", pinyin: "wèi", meaning: "没有；不曾；尚未", example: "未若柳絮因风起", note: "不如比作柳絮随风飘起。" },
-      { char: "焉", pinyin: "yān", meaning: "于是；在哪里；语气词", example: "且焉置土石", note: "况且把泥土石块放在哪里呢？" },
-      { char: "其", pinyin: "qí", meaning: "他的；它的；难道；大概", example: "其如土石何", note: "又能把泥土石块怎么样呢？" },
-      { char: "之", pinyin: "zhī", meaning: "的；他、它；去、往", example: "学而时习之", note: "学习并且按时温习它。" },
-      { char: "而", pinyin: "ér", meaning: "并且；然后；却", example: "温故而知新", note: "温习旧的知识从而获得新的理解和体会。" },
-      { char: "以", pinyin: "yǐ", meaning: "用；因为；来、用来", example: "以中有足乐者", note: "因为心中有足够快乐的事。" },
-      { char: "于", pinyin: "yú", meaning: "在；向、对；比", example: "苛政猛于虎也", note: "残酷的政令比老虎还要凶猛啊。" },
-      { char: "为", pinyin: "wéi / wèi", meaning: "做、担任；是；被", example: "山峦为晴雪所洗", note: "山峦被晴天的积雪洗过。" },
-      { char: "者", pinyin: "zhě", meaning: "……的人；……的事物", example: "知之者不如好之者", note: "懂得它的人不如喜爱它的人。" },
-      { char: "也", pinyin: "yě", meaning: "表示判断、陈述或语气", example: "此则岳阳楼之大观也", note: "这就是岳阳楼的雄伟景象啊。" },
-      { char: "乎", pinyin: "hū", meaning: "吗；呢；于", example: "不亦说乎", note: "不也是很愉快的吗？" }
+      { char: "顾", pinyin: "gù", meaning: "回头看；只是、但", example: "三顾茅庐", note: "三次拜访茅庐。", noteHighlight: "拜访" },
+      { char: "走", pinyin: "zǒu", meaning: "跑", example: "弃甲曳兵而走", note: "丢掉盔甲拖着兵器逃跑。", noteHighlight: "逃跑" },
+      { char: "去", pinyin: "qù", meaning: "离开；距离", example: "一狼去，一狼仍从", note: "一只狼离开了，另一只狼仍然跟着。", noteHighlight: "离开" },
+      { char: "亡", pinyin: "wáng", meaning: "逃跑；死亡；失去", example: "今亡亦死，举大计亦死", note: "现在逃跑也是死，发动大事也是死。", noteHighlight: "逃跑" },
+      { char: "绝", pinyin: "jué", meaning: "断；停止；极、非常；与世隔绝", example: "率妻子邑人来此绝境", note: "带领妻子儿女和同乡人来到这个与世隔绝的地方。", noteHighlight: "与世隔绝" },
+      { char: "益", pinyin: "yì", meaning: "更加；好处；增加", example: "香远益清", note: "香气传播得越远就越清幽。", noteHighlight: "越" },
+      { char: "尝", pinyin: "cháng", meaning: "曾经", example: "予尝求古仁人之心", note: "我曾经探求过古代品德高尚的人的思想感情。", noteHighlight: "曾经" },
+      { char: "方", pinyin: "fāng", meaning: "正在；才；方法", example: "方欲行", note: "正想要走。", noteHighlight: "正" },
+      { char: "适", pinyin: "shì", meaning: "恰好；到……去", example: "适为虞人驱", note: "恰好被管理山泽的人驱赶。", noteHighlight: "恰好" },
+      { char: "但", pinyin: "dàn", meaning: "只；仅仅", example: "但闻黄河流水鸣溅溅", note: "只听见黄河流水发出溅溅的声响。", noteHighlight: "只" },
+      { char: "徒", pinyin: "tú", meaning: "只；仅仅；白白地", example: "徒有虚名", note: "空有虚名。", noteHighlight: "空有" },
+      { char: "悉", pinyin: "xī", meaning: "全部；都", example: "悉使赢兵负草填之", note: "全部让瘦弱的士兵背着草去填。", noteHighlight: "全部" },
+      { char: "皆", pinyin: "jiē", meaning: "都；全都", example: "皆若空游无所依", note: "都好像在空中游动，没有什么依靠。", noteHighlight: "都" },
+      { char: "具", pinyin: "jù", meaning: "具备；准备；详加", example: "故人具鸡黍", note: "老朋友准备了鸡和黄米饭。", noteHighlight: "准备" },
+      { char: "复", pinyin: "fù", meaning: "又；再；恢复", example: "复前行，欲穷其林", note: "又向前走，想要走到那片树林的尽头。", noteHighlight: "又" },
+      { char: "乃", pinyin: "nǎi", meaning: "于是；才；竟然", example: "见渔人，乃大惊", note: "看见渔人，于是大吃一惊。", noteHighlight: "于是" },
+      { char: "遂", pinyin: "suì", meaning: "于是；就", example: "遂至承天寺寻张怀民", note: "于是到承天寺去找张怀民。", noteHighlight: "于是" },
+      { char: "固", pinyin: "gù", meaning: "本来；当然；坚固", example: "汝心之固，固不可彻", note: "你思想的顽固，本来就不能开通。", noteHighlight: "本来" },
+      { char: "诚", pinyin: "chéng", meaning: "确实；的确；真诚", example: "此诚危急存亡之秋也", note: "这确实是形势危急、决定存亡的时刻啊。", noteHighlight: "确实" },
+      { char: "甚", pinyin: "shèn", meaning: "很；非常；超过", example: "水尤清冽", note: "水特别清澈。", noteHighlight: "特别" },
+      { char: "颇", pinyin: "pō", meaning: "很；稍微", example: "颇有野趣", note: "很有田野的情趣。", noteHighlight: "很" },
+      { char: "怪", pinyin: "guài", meaning: "感到奇怪；以……为怪", example: "怪之", note: "对此感到奇怪。", noteHighlight: "奇怪" },
+      { char: "易", pinyin: "yì", meaning: "容易；交换；改变", example: "寒暑易节", note: "冬夏换季。", noteHighlight: "换" },
+      { char: "谢", pinyin: "xiè", meaning: "道歉；辞别；感谢", example: "长跪而谢之", note: "直身而跪向他道歉。", noteHighlight: "道歉" },
+      { char: "遗", pinyin: "yí", meaning: "遗留；送给；丢失", example: "父母岁有裘葛之遗", note: "父母每年都有皮衣和夏布衣服送来。", noteHighlight: "送来" },
+      { char: "举", pinyin: "jǔ", meaning: "举起；提出；全、都", example: "举头望明月", note: "抬起头仰望天上的明月。", noteHighlight: "抬起" },
+      { char: "莫", pinyin: "mò", meaning: "没有谁；不要；不", example: "莫等闲，白了少年头", note: "不要轻易虚度光阴，让少年的头发白白地变老。", noteHighlight: "不要" },
+      { char: "未", pinyin: "wèi", meaning: "没有；不曾；尚未", example: "未若柳絮因风起", note: "不如比作柳絮随风飘起。", noteHighlight: "不如" },
+      { char: "焉", pinyin: "yān", meaning: "于是；在哪里；语气词", example: "且焉置土石", note: "况且把泥土石块放在哪里呢？", noteHighlight: "哪里" },
+      { char: "其", pinyin: "qí", meaning: "他的；它的；难道；大概", example: "其如土石何", note: "又能把泥土石块怎么样呢？", noteHighlight: "又" },
+      { char: "之", pinyin: "zhī", meaning: "的；他、它；去、往", example: "学而时习之", note: "学习并且按时温习它。", noteHighlight: "它" },
+      { char: "而", pinyin: "ér", meaning: "并且；然后；却", example: "温故而知新", note: "温习旧的知识从而获得新的理解和体会。", noteHighlight: "从而" },
+      { char: "以", pinyin: "yǐ", meaning: "用；因为；来、用来", example: "以中有足乐者", note: "因为心中有足够快乐的事。", noteHighlight: "因为" },
+      { char: "于", pinyin: "yú", meaning: "在；向、对；比", example: "苛政猛于虎也", note: "残酷的政令比老虎还要凶猛啊。", noteHighlight: "比" },
+      { char: "为", pinyin: "wéi / wèi", meaning: "做、担任；是；被", example: "山峦为晴雪所洗", note: "山峦被晴天的积雪洗过。", noteHighlight: "被" },
+      { char: "者", pinyin: "zhě", meaning: "……的人；……的事物", example: "知之者不如好之者", note: "懂得它的人不如喜爱它的人。", noteHighlight: "的人" },
+      { char: "也", pinyin: "yě", meaning: "表示判断、陈述或语气", example: "此则岳阳楼之大观也", note: "这就是岳阳楼的雄伟景象啊。", noteHighlight: "啊" },
+      { char: "乎", pinyin: "hū", meaning: "吗；呢；于", example: "不亦说乎", note: "不也是很愉快的吗？", noteHighlight: "吗" }
     ];
 
     let words = [];
@@ -488,7 +481,7 @@
     }
 
     function highlightWord(text, word) {
-      if (!text) return '';
+      if (!text || !word) return text || '';
       return text.replace(new RegExp(word, 'g'), `<span class="highlight">${word}</span>`);
     }
 
@@ -507,9 +500,9 @@
       document.getElementById('back-pinyin').textContent = word.pinyin || '';
       document.getElementById('back-meaning').textContent = word.meaning;
 
-      // 例句和译文都高亮关键字
+      // 例句高亮原字，译文高亮对应的现代关键词
       document.getElementById('back-example').innerHTML = highlightWord(word.example, word.char);
-      document.getElementById('back-note').innerHTML = highlightWord(word.note, word.char);
+      document.getElementById('back-note').innerHTML = highlightWord(word.note, word.noteHighlight || word.char);
 
       document.getElementById('progress-text').textContent = `第 ${currentIndex + 1} / ${words.length} 个`;
 
@@ -544,7 +537,7 @@
 
       const word = words[quizIndex % words.length];
       
-      // 只考意思，不再考拼音
+      // 只考意思
       const question = `「${word.char}」的常见意思是？`;
       const answer = word.meaning;
 
